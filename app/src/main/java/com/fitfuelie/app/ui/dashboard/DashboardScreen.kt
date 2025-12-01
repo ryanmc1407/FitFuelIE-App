@@ -14,6 +14,7 @@ import com.fitfuelie.app.navigation.Screen
 import com.fitfuelie.app.ui.mealplanner.DailyNutritionSummary
 import com.fitfuelie.app.ui.mealplanner.MealPlannerViewModel
 import com.fitfuelie.app.ui.mealplanner.MealPlannerScreen
+import com.fitfuelie.app.ui.training.TrainingViewModel
 import com.fitfuelie.app.ui.training.TrainingCalendarScreen
 import com.fitfuelie.app.ui.grocery.GroceryListScreen
 import com.fitfuelie.app.ui.profile.ProfileScreen
@@ -103,12 +104,14 @@ fun BottomNavigationBar(navController: NavController) {
 
 @Composable
 fun HomeDashboard(
-    mealViewModel: MealPlannerViewModel = hiltViewModel()
+    mealViewModel: MealPlannerViewModel = hiltViewModel(),
+    trainingViewModel: TrainingViewModel = hiltViewModel()
 ) {
     val nutritionSummary by mealViewModel.dailyNutritionSummary.collectAsState(
         initial = DailyNutritionSummary(0, 0.0, 0.0, 0.0)
     )
     val mealsCount by mealViewModel.mealsForSelectedDate.collectAsState(initial = emptyList())
+    val sessionStats by trainingViewModel.completedSessionsCount.collectAsState(initial = Pair(0, 0))
 
     Column(
         modifier = Modifier
@@ -139,7 +142,7 @@ fun HomeDashboard(
             )
             QuickStatCard(
                 title = "Training",
-                value = "0/1", // TODO: Connect to training data
+                value = "${sessionStats.first}/${sessionStats.second}",
                 modifier = Modifier.weight(1f)
             )
         }

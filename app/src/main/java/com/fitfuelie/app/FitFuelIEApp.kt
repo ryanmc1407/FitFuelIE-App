@@ -1,4 +1,4 @@
-package com.fitfuelie.app
+ package com.fitfuelie.app
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState

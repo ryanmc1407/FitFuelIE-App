@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import com.fitfuelie.app.data.FitFuelDatabase
 import com.fitfuelie.app.data.dao.*
+import com.fitfuelie.app.data.repository.GroceryRepository
 import com.fitfuelie.app.data.repository.MealRepository
+import com.fitfuelie.app.data.repository.TrainingSessionRepository
 import com.fitfuelie.app.data.repository.UserProfileRepository
 import dagger.Module
 import dagger.Provides
@@ -42,6 +44,16 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideMealRepository(mealDao: MealDao): MealRepository = MealRepository(mealDao)
+
+    @Provides
+    @Singleton
+    fun provideTrainingSessionRepository(trainingSessionDao: TrainingSessionDao): TrainingSessionRepository =
+        TrainingSessionRepository(trainingSessionDao)
+
+    @Provides
+    @Singleton
+    fun provideGroceryRepository(groceryItemDao: GroceryItemDao): GroceryRepository =
+        GroceryRepository(groceryItemDao)
 
     @Provides
     @Singleton
